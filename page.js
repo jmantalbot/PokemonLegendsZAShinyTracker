@@ -108,7 +108,7 @@ function updateUI() {
 		$charmNo.classList.remove('active');
 	} else {
 		$charmNo.classList.add('active');
-		$charmYes.classList.add('active');
+		$charmYes.classList.remove('active');
 	}
 	localStorage.setItem('shinyTrackerStateZA', JSON.stringify({
 		charm: shinyCharm,
