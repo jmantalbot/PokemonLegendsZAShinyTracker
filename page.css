@@ -1,0 +1,243 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-family: Arial, Helvetica, sans-serif;
+	min-height: 100vh;
+}
+
+:root {
+	--primary: #274c77;
+	--secondary: #6096ba;
+	--light-primary: #a3cef1;
+	--contrast: #8b8c89;
+	--light-contrast: #e7ecef;
+
+    /* Dark Mode Variables */
+    --dm-background: #1e293b; /* Slate-800 */
+    --dm-card: #334155;      /* Slate-700 */
+    --dm-text-light: #f1f5f9; /* Slate-100 */
+    --dm-text-subtle: #94a3b8; /* Slate-400 */
+}
+
+body {
+	margin: 0px;
+	background-color: var(--light-contrast);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 20px;
+	transition: background-color 0.3s; /* Smooth transition for dark mode */
+}
+
+/* App Container Styling */
+#app-container {
+	background-color: white;
+	padding: 30px;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+	text-align: center;
+	transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+h1 {
+	color: var(--primary);
+	font-size: 2em;
+	margin-bottom: 5px;
+	transition: color 0.3s;
+}
+
+h2 {
+	color: var(--contrast);
+	font-size: 1em;
+	margin-top: 0;
+	font-weight: normal;
+	transition: color 0.3s;
+}
+
+h3 {
+	color: var(--primary);
+	font-size: 1.1em;
+	margin-bottom: 15px;
+	transition: color 0.3s;
+}
+
+/* Buttons Styling */
+button {
+	padding: 10px 20px;
+	border: 2px solid var(--secondary);
+	background-color: white;
+	color: var(--secondary);
+	font-weight: bold;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+	margin: 5px;
+}
+
+button:hover {
+	background-color: var(--light-primary);
+}
+
+/* --- ACTIVE State for Buttons --- */
+button.active {
+	background-color: var(--secondary);
+	color: white;
+	border-color: var(--primary);
+	box-shadow: 0 0 0 3px var(--light-primary);
+}
+
+/* Results Section Styling */
+#results {
+	margin: 30px 0;
+	padding: 15px;
+	background-color: var(--light-contrast);
+	border-radius: 8px;
+	transition: background-color 0.3s;
+}
+
+.result-box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 1px dashed var(--contrast);
+}
+
+.result-box:last-child {
+	border-bottom: none;
+}
+
+.result-box p {
+	margin: 0;
+	color: var(--contrast);
+	font-weight: bold;
+	transition: color 0.3s;
+}
+
+.result-box span {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: var(--primary);
+	transition: color 0.3s;
+}
+
+#cumulative {
+	color: var(--secondary);
+	font-size: 1.8em;
+	transition: color 0.3s;
+}
+
+/* Action Buttons Styling */
+#actions {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+#counter {
+	flex-grow: 3;
+	background-color: var(--secondary);
+	color: white;
+	border: 2px solid var(--secondary);
+	font-size: 1.2em;
+	transition: background-color 0.3s, border-color 0.3s;
+}
+
+#counter:hover {
+	background-color: var(--primary);
+}
+
+#reset {
+	flex-grow: 1;
+	background-color: white;
+	color: var(--contrast);
+	border-color: var(--contrast);
+	transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#reset:hover {
+	background-color: var(--contrast);
+	color: white;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background-color: var(--light-primary);
+	margin: 20px 0;
+	transition: background-color 0.3s;
+}
+
+
+/* --- DARK MODE STYLES --- */
+/* Target the body when it has the .dark-mode class */
+body.dark-mode {
+    background-color: var(--dm-background);
+}
+
+body.dark-mode #app-container {
+    background-color: var(--dm-card);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode .result-box p {
+    color: var(--dm-text-light);
+}
+
+body.dark-mode h2 {
+    color: var(--dm-text-subtle);
+}
+
+body.dark-mode #results {
+    background-color: var(--dm-background);
+}
+
+body.dark-mode .result-box {
+    border-bottom: 1px dashed var(--dm-text-subtle);
+}
+
+body.dark-mode .result-box span {
+    color: var(--light-primary); /* Keep secondary bright for contrast */
+}
+
+body.dark-mode button {
+    background-color: var(--dm-card);
+    color: var(--light-primary);
+    border-color: var(--dm-text-subtle);
+}
+
+body.dark-mode button:hover {
+    background-color: var(--dm-background);
+    color: var(--secondary);
+}
+
+body.dark-mode button.active {
+    background-color: var(--secondary); /* Keep shiny colors bright */
+    color: var(--dm-text-light);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--light-primary);
+}
+
+body.dark-mode #reset {
+    background-color: var(--dm-card);
+    color: var(--dm-text-subtle);
+    border-color: var(--dm-text-subtle);
+}
+
+body.dark-mode #reset:hover {
+    background-color: var(--dm-background);
+    color: var(--dm-text-light);
+}
+
+body.dark-mode hr {
+    background-color: var(--dm-text-subtle);
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pokémon Legends: Z-A Shiny Tracker</title>
+	<link rel="stylesheet" href="page.css">
+	<script src="page.js" defer></script>
+</head>
+
+<body>
+	<div id="app-container">
+        <button id="dark-mode-toggle" class="mode-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+            </svg>
+        </button>
+
+        <h1>Pokémon Legends: &nbsp;Z-A Shiny Tracker</h1>
+		<h2>By Tallerboat</h2>
+
+		<section id="charm-selection">
+			<h3 id="question">Do you have the shiny Charm?</h3>
+			<button id="shinycharm_yes">Yes</button>
+			<button id="shinycharm_no">No</button>
+		</section>
+
+		<section id="results">
+			<div class="result-box">
+				<p>Current Encounters:</p>
+				<span id="encounters">0</span>
+			</div>
+			<div class="result-box">
+				<p> Odds: 1 in <span id="current-rate">4096</span></p>
+			</div>
+
+			<div class="result-box">
+				<p> Cumulative Chance of finding a Shiny:</p>
+				<span id="cumulative">0.00%</span>
+			</div>
+		</section>
+
+		<hr>
+
+		<div id="actions">
+			<button id="counter">+1</button>
+			<button id="reset">Reset</button>
+		</div>
+	</div>
+</body>
+</html>
