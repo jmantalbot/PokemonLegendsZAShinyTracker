@@ -42,6 +42,7 @@ body {
 	max-width: 400px;
 	text-align: center;
 	transition: background-color 0.3s, box-shadow 0.3s;
+	position: relative;
 }
 
 h1 {
@@ -89,6 +90,15 @@ button.active {
 	color: white;
 	border-color: var(--primary);
 	box-shadow: 0 0 0 3px var(--light-primary);
+}
+
+
+#targets {
+    margin: 30px 0; /* Match spacing of #results if needed, though HTML uses inline style */
+	padding: 15px;
+	background-color: var(--light-contrast); /* Match background */
+	border-radius: 8px;
+	transition: background-color 0.3s;
 }
 
 /* Results Section Styling */
@@ -153,6 +163,19 @@ button.active {
 	background-color: var(--primary);
 }
 
+#decrement-counter {
+    flex-grow: 1; /* Smaller than +1 */
+    background-color: var(--light-contrast);
+    color: var(--contrast);
+    border-color: var(--contrast);
+    font-size: 1.2em;
+}
+
+#decrement-counter:hover {
+    background-color: var(--contrast);
+    color: white;
+}
+
 #reset {
 	flex-grow: 1;
 	background-color: white;
@@ -173,6 +196,13 @@ hr {
 	margin: 20px 0;
 	transition: background-color 0.3s;
 }
+
+
+
+
+
+
+
 
 
 /* --- DARK MODE STYLES --- */
@@ -240,4 +270,9 @@ body.dark-mode #reset:hover {
 
 body.dark-mode hr {
     background-color: var(--dm-text-subtle);
+}
+
+body.dark-mode #results,
+body.dark-mode #targets { 
+    background-color: var(--dm-background);
 }
