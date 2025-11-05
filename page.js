@@ -1,8 +1,9 @@
 const BASE_RATE = 4096;
+const CHARM_RATE = 1024.38;
 
 const SHINY_ROLLS = {
 	'false': 1,
-	'true': 4
+	'true': BASE_RATE / CHARM_RATE
 };
 
 let shinyCharm = false;
@@ -18,6 +19,9 @@ const $currentRateDisplay = $('current-rate');
 const $counterBtn = $('counter');
 const $resetBtn = $('reset');
 const $darkModeToggle = $('dark-mode-toggle');
+const $decrementBtn = $('decrement-counter');
+const $target50 = $('target-50');
+const $target90 = $('target-90');
 
 
 function getRolls() {
@@ -28,10 +32,25 @@ function calculateCumulativePercentage(count,rolls) {
 	return Math.round(BASE_RATE / rolls);
 }
 
-function calculateRate(rolls) {
-	return Math.round( BASE_RATE / rolls);
+function calculateRate() {
+	if (shinyCharm){
+		return CHARM_RATE.toFixed(2);
+	}
+
+	return BASE_RATE
 }
 
+function incrementCounter() {
+    encounterCount++;
+    updateUI();
+}
+
+function decrementCounter() {
+    if (encounterCount > 0) {
+        encounterCount--;
+        updateUI();
+    }
+}
 
 function calculateCumulativePercentage(count, rolls) {
 	const probabilityPerEncounter = rolls / BASE_RATE;
@@ -40,6 +59,16 @@ function calculateCumulativePercentage(count, rolls) {
 	const cumulativeSuccess = 1 - cumulativeFailure;
 	return (cumulativeSuccess * 100).toFixed(2);
 }
+
+function calculateEncountersForProbability(targetProbability, rolls){
+	if (rolls === 0) return Math.log(1-targetProbability);
+
+	const p = rolls / BASE_RATE;
+	const N = Math.log(1- targetProbability) / Math.log(1-p);
+	const remaining = Math.max(0, Math.ceil(N) - encounterCount);
+	return remaining;
+}
+
 
 
 function toggleDarkMode() {
@@ -64,9 +93,15 @@ function updateUI() {
 	const rolls = getRolls();
 	const rate = calculateRate(rolls);
 	const cumulativePercentage = calculateCumulativePercentage(encounterCount, rolls);
+	const remaining50 = calculateEncountersForProbability(0.50, rolls);
+	const remaining90 = calculateEncountersForProbability(0.90, rolls);
+
 	$encounterCountDisplay.textContent = encounterCount.toLocaleString();
 	$cumulativeDisplay.textContent = `${cumulativePercentage}%`;
 	$currentRateDisplay.textContent = rate.toLocaleString();
+
+	$target50.textContent = remaining50.toLocaleString();
+	$target90.textContent = remaining90.toLocaleString();
 
 	if (shinyCharm) {
 		$charmYes.classList.add('active');
@@ -92,13 +127,23 @@ $charmNo.addEventListener('click', () => {
 	updateUI();
 });
 
-$counterBtn.addEventListener('click', () => {
-	encounterCount++;
-	updateUI();
-})
-
-
+$counterBtn.addEventListener('click', incrementCounter);
+$decrementBtn.addEventListener('click', decrementCounter);
 $darkModeToggle.addEventListener('click', toggleDarkMode); // Dark mode toggle event
+
+document.addEventListener('keyup', (event) => {
+    // Check for spacebar press, and ensure input/buttons are not active to prevent double counts
+    if (event.code === 'Space' && document.activeElement.tagName !== 'BUTTON' && document.activeElement.tagName !== 'INPUT') {
+        event.preventDefault(); // Stop the spacebar from scrolling the page
+        
+        if (event.ctrlKey) {
+            decrementCounter();
+        } else {
+            // Spacebar for increment (+1)
+            incrementCounter();
+        }
+    }
+});
 
 
 $resetBtn.addEventListener('click', () => {
